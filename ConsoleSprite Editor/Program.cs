@@ -13,7 +13,6 @@ namespace ConsoleSprite_Editor
     }
     /*   H        H       I           !
      *   H        H       I           !
-     *   H        H       I           !
      *   HHHHHHHHHH       I           !
      *   H        H       I           !
      *   H        H       I           
