@@ -11,6 +11,14 @@ namespace ConsoleSprite_Editor
             g.Run(new Display(DisplayType.Console, "terminal", 120, 80, 8, 8));
         }
     }
+    /*   H        H       I           !
+     *   H        H       I           !
+     *   H        H       I           !
+     *   HHHHHHHHHH       I           !
+     *   H        H       I           !
+     *   H        H       I           
+     *   H        H       I           !
+     */
     class MyGame : Game
     {
         static GameState NextState;
