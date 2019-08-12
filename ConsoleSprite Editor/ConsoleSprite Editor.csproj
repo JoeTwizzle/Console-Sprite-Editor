@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>ConsoleSprite_Editor</RootNamespace>
+    <ApplicationIcon />
+    <StartupObject></StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SharpDX">
+      <HintPath>..\..\TGE\TGE\bin\Release\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput">
+      <HintPath>..\..\TGE\TGE\bin\Release\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
+    <Reference Include="TGE">
+      <HintPath>..\..\TGE\TGE\bin\Debug\TGE.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
