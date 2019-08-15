@@ -1,23 +1,27 @@
 ﻿using System;
+using System.IO;
+using System.Threading;
 using TGE;
 
 namespace ConsoleSprite_Editor
 {
     class Program
     {
+        public static ConsoleSprite sprite;
         static void Main(string[] args)
         {
+            if (args.Length != 0)
+            {
+                string text = File.ReadAllText(args[0]);
+                text = text.Replace("~", "~\r\n");
+                sprite = ConsoleSprite.Load(args[0], true);
+            }
+
+            //sprite = ConsoleSprite.Load(@"F:\Projekte\C#\ConsoleSprite Editor\ConsoleSprite Editor\bin\Release\netcoreapp2.2\publish\Sprites\Test.cpr", true);
             MyGame g = new MyGame();
-            g.Run(new Display(DisplayType.Console, "terminal", 120, 80, 8, 8));
+            g.Run(new Display(DisplayType.Console, "Lucida Console", 128, 88, 8,8));
         }
     }
-    /*   H        H       I           !
-     *   H        H       I           !
-     *   HHHHHHHHHH       I           !
-     *   H        H       I           !
-     *   H        H       I           
-     *   H        H       I           !
-     */
     class MyGame : Game
     {
         static GameState NextState;
@@ -29,7 +33,15 @@ namespace ConsoleSprite_Editor
         }
         public override void Initialize()
         {
-            ActiveState = new InitialState(this, "Initial State");
+            if (Program.sprite == null)
+            {
+                ActiveState = new InitialState(this, "Initial State");
+            }
+            else
+            {
+                ActiveState = new DefaultState(this, "Default State", Program.sprite);
+            }
+
             ActiveState.Parent = this;
             ActiveState.Initialize();
         }

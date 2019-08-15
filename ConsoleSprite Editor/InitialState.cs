@@ -19,34 +19,40 @@ namespace ConsoleSprite_Editor
         Panel BG;
         void Pass()
         {
-            
+            ColorChanger.SetColor(1, Color);
             DefaultState state = new DefaultState(this.Parent, "Default State", new Tuple<int, int>(upDownX.Value, upDownY.Value));
 
             MyGame.ChangeStates(state);
         }
+        Color Color;
 
         public override void Initialize()
         {
+ 
             var xPos = Parent.Screen.Width / 2 - 9;
             var yPos = Parent.Screen.Height / 2;
-            upDownX = new UpDown(xPos, yPos) { MaxValue = 64, TextColor = 7 << 4, BorderColor = 8 };
-            upDownY = new UpDown(xPos + 9, yPos) { MaxValue = 64, TextColor = 7 << 4, BorderColor = 8 };
-            okText = new TextBlock(xPos + 17, yPos, "Continue") { TextColor = 7 << 4, BorderColor = 8 };
+            short color = 7 << 4;
+            upDownX = new UpDown(xPos, yPos) { MaxValue = 999, TextColor = color, InsideColor = 7, BorderColor = 8 };
+            upDownY = new UpDown(xPos + 9, yPos) { MaxValue = 999, TextColor = color, InsideColor = 7, BorderColor = 8 };
+            okText = new TextBlock(xPos + 17, yPos, "Continue") { TextColor = color, InsideColor = 7, BorderColor = 8 };
+            
             BG = new Panel(xPos - 2, yPos - 3, 30, 6) { InsideColor = 7, BorderColor = 8 };
+            Color = ColorChanger.GetColor(1);
             ColorChanger.SetColor(1, Color.FromArgb(200, 100, 0));
             panel = new Panel(0, 0, Parent.Screen.Width - 1, Parent.Screen.Height - 1) { InsideColor = 1, BorderColor = 12 };
         }
         public override void Start()
         {
-            upDownX.Value = 16;
-            upDownY.Value = 16;
+            upDownX.Value = 8;
+            upDownY.Value = 8;
             okText.Update();
         }
         int cont = 0;
-        int freq = 6;
+        int freq = 4;
         int tabIndex = 0;
         public override void Update()
         {
+            
             upDownX.Update();
             upDownY.Update();
             var mouse = Input.GetMouse();
@@ -88,7 +94,7 @@ namespace ConsoleSprite_Editor
             {
                 okText.BorderColor = 8;
             }
-            if (Input.GetKey(Key.Return).Pressed|| okText.IsInside(mouse.X, mouse.Y) && mouse.IsLeftClick())
+            if (Input.GetKey(Key.Return).Pressed || okText.IsInside(mouse.X, mouse.Y) && mouse.IsLeftClick())
             {
                 okText.BorderColor = 10;
                 Pass();
@@ -104,7 +110,7 @@ namespace ConsoleSprite_Editor
                     tabIndex = 0;
                 }
             }
-            if (Input.GetKey(Key.Back).Pressed)
+            if (Input.GetKey(Key.Escape).Pressed)
             {
                 Environment.Exit(0);
             }
@@ -112,7 +118,6 @@ namespace ConsoleSprite_Editor
             upDownY.BorderColor = (short)((tabIndex == 1 ? 12 : 15));
             okText.TextColor = (short)((tabIndex == 2 ? 12 : 15));
         }
-
         public override void LateUpdate()
         {
 
@@ -124,7 +129,7 @@ namespace ConsoleSprite_Editor
             BG.Draw(Parent.Screen);
             Parent.Screen.Draw("Sprite dimensions:", Parent.Screen.Width / 2 - 10, Parent.Screen.Height / 2 - 2, (short)(0 | (7 << 4)));
             upDownX.Draw(Parent.Screen);
-            upDownY.Draw(Parent.Screen);
+            upDownY.Draw(Parent.Screen);           
             var mouse = Input.GetMouse();
             okText.Draw(Parent.Screen);
             Parent.Screen.Draw('█', mouse.X, mouse.Y, 12);

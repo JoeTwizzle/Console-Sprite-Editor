@@ -9,6 +9,7 @@ namespace ConsoleSprite_Editor
     {
         public short TextColor;
         public string Text;
+
         public TextBlock(int PosX, int PosY, string Text = "", short TextColor = 15) : base(PosX, PosY, 0, 0)
         {
             this.Clickable = true;
